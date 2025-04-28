@@ -1,64 +1,83 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Liste de Tâches</title>
-  <script src="https://cdn.tailwindcss.com"></script>
 
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Liste de Tâches</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
 
-  <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
-    <h1 class="text-2xl font-bold mb-6 text-center">Ma Liste de Tâches</h1>
-    
-    <div class="flex mb-4">
-      <input id="task-input" type="text" placeholder="Nouvelle tâche..." 
-             class="flex-1 border border-gray-300 rounded-l-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
-      <button id="add-task-btn" 
-              class="bg-blue-500 hover:bg-blue-600 text-white px-4 rounded-r-lg">Ajouter</button>
+    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+        <h1 class="text-2xl font-bold mb-6 text-center">Ma Liste de Tâches</h1>
+
+        <div class="flex mb-4">
+            <input id="task-input" type="text" placeholder="Nouvelle tâche..."
+                class="flex-1 border border-gray-300 rounded-l-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <button id="add-task-btn"
+                class="bg-blue-500 hover:bg-blue-600 text-white px-4 rounded-r-lg">Ajouter</button>
+        </div>
+
+        <ul id="task-list" class="space-y-2">
+
+            </li>
+        </ul>
     </div>
 
-    <ul id="task-list" class="space-y-2">
+    <script>
 
-      </li>
-    </ul>
-  </div>
+        const addBtn = document.getElementById('add-task-btn');
+        const taskInput = document.getElementById('task-input');
+        const ul = document.getElementById('task-list');
+        console.log(taskInput);
 
-  <script>
+        addBtn.addEventListener('click', () => {
+            console.log('aloooooooooooooooooooooooo');
+            const task = taskInput.value;
+            console.log(task);
 
-    const addBtn = document.getElementById('add-task-btn');
-    const taskInput = document.getElementById('task-input');
-    const ul = document.getElementById('task-list');
-    console.log(taskInput);
+            const li = document.createElement('li');
 
-    addBtn.addEventListener('click', ()=>{
-        console.log('aloooooooooooooooooooooooo');
-        const task = taskInput.value;
-    console.log(task);
-    
-        const li = document.createElement('li');
-
-        li.innerHTML = `
+            li.innerHTML = `
                 <span>${task}</span>
-                <button class="bg-red-500 hover:bg-red-600 text-white px-2 rounded">Supprimer</button>
-            
+                <div class="flex gap-2">
+                <button class="delete-btn bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded-md">Supprimer</button>
+                <button class="status-btn complete-btn bg-gray-400 hover:bg-gray-500 text-white px-2 py-1 rounded-md">mark it as done</button>
+            </div>
         `
 
-        li.classList.add('flex', 'justify-between', 'items-center', 'bg-gray-100', 'p-2', 'rounded-lg', 'shadow-sm');
-        taskInput.value = '';
-         ul.appendChild(li);
+            li.classList.add('flex', 'justify-between', 'items-center', 'bg-gray-100', 'p-2', 'rounded-lg', 'shadow-sm');
+            taskInput.value = '';
+            ul.appendChild(li);
 
-        const deleteBtn = li.querySelector('button');
-        
+            const deleteBtn = li.querySelectorAll('.delete-btn');
 
-        deleteBtn.addEventListener('click' , function(){
-          ul.removeChild(this.parentElement);
+            deleteBtn.forEach(element => {
+                element.addEventListener('click', function () {
+                    ul.removeChild(this.parentElement.parentElement);
+                });
+            });
+
+
+            const statusBtn = document.querySelectorAll('.status-btn');
+
+            statusBtn.forEach(element => {
+                element.addEventListener('click', function () {
+                    this.textContent = 'Done'
+                    this.style.background = '#afceb6';
+                    this.style.color = 'white';
+
+                })
+            });
+
+
         })
-        
-    
-    })
 
 
-  </script>
+
+
+    </script>
