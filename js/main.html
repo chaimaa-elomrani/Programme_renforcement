@@ -25,3 +25,40 @@
       </li>
     </ul>
   </div>
+
+  <script>
+
+    const addBtn = document.getElementById('add-task-btn');
+    const taskInput = document.getElementById('task-input');
+    const ul = document.getElementById('task-list');
+    console.log(taskInput);
+
+    addBtn.addEventListener('click', ()=>{
+        console.log('aloooooooooooooooooooooooo');
+        const task = taskInput.value;
+    console.log(task);
+    
+        const li = document.createElement('li');
+
+        li.innerHTML = `
+                <span>${task}</span>
+                <button class="bg-red-500 hover:bg-red-600 text-white px-2 rounded">Supprimer</button>
+            
+        `
+
+        li.classList.add('flex', 'justify-between', 'items-center', 'bg-gray-100', 'p-2', 'rounded-lg', 'shadow-sm');
+        taskInput.value = '';
+         ul.appendChild(li);
+
+        const deleteBtn = li.querySelector('button');
+        
+
+        deleteBtn.addEventListener('click' , function(){
+          ul.removeChild(this.parentElement);
+        })
+        
+    
+    })
+
+
+  </script>
